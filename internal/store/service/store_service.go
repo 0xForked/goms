@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"fmt"
-	"github.com/bakode/goms/internal/store/domain/contract"
-	"github.com/bakode/goms/internal/store/domain/entity"
+	"github.com/aasumitro/goms/internal/store/domain/contract"
+	"github.com/aasumitro/goms/internal/store/domain/entity"
 )
 
 type storeService struct {

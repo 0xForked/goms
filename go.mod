@@ -1,4 +1,4 @@
-module github.com/bakode/goms
+module github.com/aasumitro/goms
 
 go 1.19
 

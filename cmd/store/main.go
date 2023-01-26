@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/bakode/goms/internal/store"
+	"github.com/aasumitro/goms/internal/store"
 	"log"
 	"net"
 	"sync"

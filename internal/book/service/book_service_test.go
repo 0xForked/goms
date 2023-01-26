@@ -3,9 +3,9 @@ package service_test
 import (
 	"context"
 	"errors"
-	"github.com/bakode/goms/internal/book/domain/entity"
-	"github.com/bakode/goms/internal/book/service"
-	"github.com/bakode/goms/mocks"
+	"github.com/aasumitro/goms/internal/book/domain/entity"
+	"github.com/aasumitro/goms/internal/book/service"
+	"github.com/aasumitro/goms/mocks"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"testing"

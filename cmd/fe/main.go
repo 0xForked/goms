@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/bakode/goms/web"
+	"github.com/aasumitro/goms/web"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"

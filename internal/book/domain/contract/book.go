@@ -2,7 +2,7 @@ package contract
 
 import (
 	"context"
-	"github.com/bakode/goms/internal/book/domain/entity"
+	"github.com/aasumitro/goms/internal/book/domain/entity"
 )
 
 type (

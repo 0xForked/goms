@@ -2,10 +2,10 @@ package store
 
 import (
 	"database/sql"
-	handler "github.com/bakode/goms/internal/book/delivery/handler/grpc"
-	sqlRepo "github.com/bakode/goms/internal/book/repository/sql"
-	"github.com/bakode/goms/internal/book/service"
-	"github.com/bakode/goms/pkg/pb"
+	handler "github.com/aasumitro/goms/internal/book/delivery/handler/grpc"
+	sqlRepo "github.com/aasumitro/goms/internal/book/repository/sql"
+	"github.com/aasumitro/goms/internal/book/service"
+	"github.com/aasumitro/goms/pkg/pb"
 	"google.golang.org/grpc"
 	"log"
 	"net"

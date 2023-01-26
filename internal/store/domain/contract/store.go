@@ -2,7 +2,7 @@ package contract
 
 import (
 	"context"
-	"github.com/bakode/goms/internal/store/domain/entity"
+	"github.com/aasumitro/goms/internal/store/domain/entity"
 )
 
 type IStoreRepository interface {
