@@ -40,8 +40,6 @@ func main() {
 
 func getDBConn() {
 	dbOnce.Do(func() {
-		var err error
-
 		if dbPool, err = sql.Open(DBDriver, DBSource); err != nil {
 			panic(fmt.Sprintf(
 				"DATABASE_ERROR: %s",
