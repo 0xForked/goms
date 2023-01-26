@@ -1,0 +1,5 @@
+package bff
+
+func NewAggregatorService() {
+
+}

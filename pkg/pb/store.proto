@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./pkg/pb";
+
+service StoreGRPCHandler {
+  rpc Fetch (StoreEmptyRequest) returns (StoreRowsResponse) {}
+  rpc Show (StoreIDModel) returns  (StoreRowResponse) {}
+  rpc Store (StoreNameModel) returns (StoreBoolResponse) {}
+  rpc Update (StoreModel) returns (StoreBoolResponse) {}
+  rpc Destroy (StoreIDModel) returns (StoreBoolResponse) {}
+}
+
+message StoreModel {
+  uint32 id = 1;
+  string name = 2;
+}
+
+message StoreIDModel {
+  uint32 id = 1;
+}
+
+message StoreNameModel {
+  string name = 1;
+}
+
+message StoreEmptyRequest {}
+
+message StoreRowsResponse {repeated StoreModel stores = 1;}
+message StoreRowResponse {StoreModel store = 1;}
+message StoreBoolResponse {bool status = 1;}
+

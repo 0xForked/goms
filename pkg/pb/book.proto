@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./internal/book/domain/proto";
+
+service Book {
+  rpc Fetch (BookRequest) returns (BookReply) {}
+//  rpc Show (StoreRequest) returns (stream EmployeeRequest) {}
+//  rpc Store (StoreRequest) returns (stream Employees) {}
+//  rpc Update (StoreRequest) returns (stream Employees) {}
+//  rpc Destroy (StoreRequest) returns (stream Employees) {}
+}
+
+// The request message containing the user's name.
+message BookRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message BookReply {
+  string message = 1;
+}
