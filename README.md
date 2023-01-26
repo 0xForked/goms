@@ -15,3 +15,5 @@ Example of EDA and ADA, Microservice Design Pattern Implementation with Golang.
 ### GTK
 - EDA stand for Event-driven Architecture
 - ADA stand for API-driven Architecture
+- FE stand for Frontend
+- bff stand for Backend for frontend
