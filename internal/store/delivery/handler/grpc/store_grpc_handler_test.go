@@ -1,8 +1,9 @@
-package grpc
+package grpc_test
 
 import (
 	"context"
 	"errors"
+	delivery "github.com/bakode/goms/internal/store/delivery/handler/grpc"
 	"github.com/bakode/goms/internal/store/domain/entity"
 	"github.com/bakode/goms/mocks"
 	"github.com/bakode/goms/pkg/pb"
@@ -44,7 +45,7 @@ func GetConnWithMock(s *storeGRPCHandlerTestSuite, mockType MockType) *grpc.Clie
 	s.Suite.T().Cleanup(func() { svr.Stop() })
 
 	svc := new(mocks.IStoreService)
-	handler := NewStoreGRPCHandler(svc)
+	handler := delivery.NewStoreGRPCHandler(svc)
 	pb.RegisterStoreGRPCHandlerServer(svr, handler)
 	go func() {
 		if err := svr.Serve(lsn); err != nil {

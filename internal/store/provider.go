@@ -12,11 +12,10 @@ import (
 )
 
 func NewStoreService(db *sql.DB, host net.Listener) {
-	repo := sqlRepo.NewStoreSQLRepository(db) // repository
-	svc := service.NewStoreService(repo)      // service
-	tpt := handler.NewStoreGRPCHandler(svc)   // transport/delivery handler
-	svr := grpc.NewServer()                   // grpc server
-
+	repo := sqlRepo.NewStoreSQLRepository(db)
+	svc := service.NewStoreService(repo)
+	tpt := handler.NewStoreGRPCHandler(svc)
+	svr := grpc.NewServer()
 	pb.RegisterStoreGRPCHandlerServer(svr, tpt)
 	if err := svr.Serve(host); err != nil {
 		log.Fatalf("Failed to serve: %v", err)

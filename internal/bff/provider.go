@@ -1,5 +1,5 @@
 package bff
 
-func NewAggregatorService() {
+func NewBFFService() {
 
 }

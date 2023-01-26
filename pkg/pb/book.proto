@@ -2,22 +2,38 @@ syntax = "proto3";
 
 package proto;
 
-option go_package = "./internal/book/domain/proto";
+option go_package = "./pkg/pb";
 
-service Book {
-  rpc Fetch (BookRequest) returns (BookReply) {}
-//  rpc Show (StoreRequest) returns (stream EmployeeRequest) {}
-//  rpc Store (StoreRequest) returns (stream Employees) {}
-//  rpc Update (StoreRequest) returns (stream Employees) {}
-//  rpc Destroy (StoreRequest) returns (stream Employees) {}
+enum ActionType {
+  SPECIFIED = 0;
+  RELATED = 1;
+}
+
+service BookGRPCHandler {
+  rpc Fetch (BookIDModel) returns (BookRowsResponse) {}
+  rpc Show (BookIDModel) returns  (BookRowResponse) {}
+  rpc Store (BookAddRequest) returns (BookBoolResponse) {}
+  rpc Update (BookModel) returns (BookBoolResponse) {}
+  rpc Destroy (BookIDModel) returns (BookBoolResponse) {}
 }
 
 // The request message containing the user's name.
-message BookRequest {
-  string name = 1;
+message BookModel {
+  uint32 id = 1;
+  uint32 store_id = 2;
+  string name = 3;
 }
 
-// The response message containing the greetings
-message BookReply {
-  string message = 1;
+message BookIDModel {
+  uint32 id = 1;
+  ActionType type = 2;
 }
+
+message BookAddRequest {
+  uint32 store_id = 2;
+  string name = 3;
+}
+
+message BookRowsResponse {repeated BookModel stores = 1;}
+message BookRowResponse {BookModel store = 1;}
+message BookBoolResponse {bool status = 1;}

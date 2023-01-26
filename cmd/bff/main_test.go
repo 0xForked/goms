@@ -38,8 +38,8 @@ func Benchmark_StoreServer(b *testing.B) {
 
 func Benchmark_BookServer(b *testing.B) {
 	conn := GetGRPCConn(":8002")
-	client := pb.NewStoreGRPCHandlerClient(conn)
+	client := pb.NewBookGRPCHandlerClient(conn)
 	for i := 0; i < b.N; i++ {
-		_, _ = client.Fetch(context.TODO(), &pb.StoreEmptyRequest{})
+		_, _ = client.Fetch(context.TODO(), &pb.BookIDModel{})
 	}
 }
