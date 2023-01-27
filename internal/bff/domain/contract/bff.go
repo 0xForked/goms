@@ -28,15 +28,15 @@ type (
 	IBFFService interface {
 		AllStore(ctx context.Context, args *WithParam, params *entity.Store) (items []*entity.Store, errorData *utils.ServiceErrorData)
 		FirstStore(ctx context.Context, args *WithParam, param *entity.Store) (items *entity.Store, errorData *utils.ServiceErrorData)
-		//CreateStore()
-		//UpdateStore()
-		//DestroyStore()
+		// CreateStore()
+		// UpdateStore()
+		// DestroyStore()
 
-		//AllBook(ctx context.Context, args *WithParam, params *entity.Book) (items []*entity.Book, errorData *utils.ServiceErrorData)
-		//FirstBook(ctx context.Context, param *entity.Book) (items *entity.Book, errorData *utils.ServiceErrorData)
-		//CreateBook()
-		//UpdateBook()
-		//DestroyBook()
+		// AllBook(ctx context.Context, args *WithParam, params *entity.Book) (items []*entity.Book, errorData *utils.ServiceErrorData)
+		// FirstBook(ctx context.Context, param *entity.Book) (items *entity.Book, errorData *utils.ServiceErrorData)
+		// CreateBook()
+		// UpdateBook()
+		// DestroyBook()
 	}
 )
 

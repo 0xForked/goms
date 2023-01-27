@@ -10,22 +10,14 @@ type ServiceErrorData struct {
 	Message any
 }
 
-func WrapDataRow[T any](data *T, err error) (valueData *T, errData *ServiceErrorData) {
+func WrapDataRows[T any](data []*T, err error) (valueData []*T, errData *ServiceErrorData) {
 	errData = validateErrorMessage(err)
-
-	if data == nil {
-		errData = whenDataIsNil()
-	}
 
 	return data, errData
 }
 
-func WrapDataRows[T any](data []*T, err error) (valueData []*T, errData *ServiceErrorData) {
+func WrapDataRow[T any](data *T, err error) (valueData *T, errData *ServiceErrorData) {
 	errData = validateErrorMessage(err)
-
-	if data == nil {
-		errData = whenDataIsNil()
-	}
 
 	return data, errData
 }
@@ -34,13 +26,6 @@ func WrapPrimitiveValue[T any](data T, err error) (valueData T, errData *Service
 	errData = validateErrorMessage(err)
 
 	return data, errData
-}
-
-func whenDataIsNil() *ServiceErrorData {
-	return &ServiceErrorData{
-		Code:    http.StatusNotFound,
-		Message: "data you're looking for not found",
-	}
 }
 
 func validateErrorMessage(err error) *ServiceErrorData {

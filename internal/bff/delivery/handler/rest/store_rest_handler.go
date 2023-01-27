@@ -41,7 +41,7 @@ func (handler *bffRESTHandler) ShowStore(ctx *gin.Context) {
 		return
 	}
 
-	if param := ctx.Request.URL.Query().Get("with"); param == "store" {
+	if param := ctx.Request.URL.Query().Get("with"); param == "books" {
 		relation := contract.WithRelationID
 		args = &relation
 	}

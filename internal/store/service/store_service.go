@@ -26,11 +26,12 @@ func (s storeService) Find(ctx context.Context, arg *entity.Store) (item *entity
 		return nil, err
 	}
 
-	if len(data) == 0 {
-		return nil, nil
-	}
-
-	return data[0], nil
+	return func() *entity.Store {
+		if len(data) == 0 {
+			return nil
+		}
+		return data[0]
+	}(), nil
 }
 
 func (s storeService) Record(ctx context.Context, args ...*entity.Store) error {

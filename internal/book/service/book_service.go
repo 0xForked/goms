@@ -26,7 +26,12 @@ func (s bookService) Find(ctx context.Context, arg *entity.Book) (item *entity.B
 		return nil, err
 	}
 
-	return data[0], nil
+	return func() *entity.Book {
+		if len(data) == 0 {
+			return nil
+		}
+		return data[0]
+	}(), nil
 }
 
 func (s bookService) Record(ctx context.Context, args ...*entity.Book) error {

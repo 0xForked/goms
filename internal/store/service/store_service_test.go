@@ -59,6 +59,16 @@ func (suite *storeServiceTestSuite) TestService_Find_ShouldSuccess() {
 	suite.Equal(data, suite.stores[0])
 	repoMock.AssertExpectations(suite.T())
 }
+func (suite *storeServiceTestSuite) TestService_Find_Empty_ShouldSuccess() {
+	repoMock := new(mocks.IStoreRepository)
+	svc := service.NewStoreService(repoMock)
+	repoMock.On("Select", mock.Anything, mock.Anything).
+		Return([]*entity.Store{}, nil).Once()
+	data, err := svc.Find(context.TODO(), &entity.Store{ID: 1})
+	suite.Nil(err)
+	suite.Nil(data)
+	repoMock.AssertExpectations(suite.T())
+}
 func (suite *storeServiceTestSuite) TestService_Find_ShouldError() {
 	repoMock := new(mocks.IStoreRepository)
 	svc := service.NewStoreService(repoMock)

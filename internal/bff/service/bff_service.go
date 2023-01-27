@@ -6,6 +6,7 @@ import (
 	"github.com/aasumitro/goms/internal/bff/domain/entity"
 	"github.com/aasumitro/goms/internal/bff/utils"
 	"github.com/go-redis/redis/v8"
+	"net/http"
 )
 
 type bffService struct {
@@ -34,6 +35,13 @@ func (s bffService) FirstStore(
 	errorData *utils.ServiceErrorData,
 ) {
 	data, err := s.storeRepo.Find(ctx, param)
+
+	if data == nil {
+		return nil, &utils.ServiceErrorData{
+			Code:    http.StatusNotFound,
+			Message: "data you're looking for not found",
+		}
+	}
 
 	if args != nil && *args == contract.WithRelationID {
 		if books, err := s.bookRepo.All(ctx, &entity.Book{StoreID: data.ID}); err == nil {

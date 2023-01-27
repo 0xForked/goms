@@ -18,30 +18,31 @@ func (handler *BookGRPCHandler) Fetch(
 	model *pb.BookIDModel,
 ) (*pb.BookRowsResponse, error) {
 	var (
-		stores []*entity.Book
-		err    error
+		books []*entity.Book
+		err   error
 	)
 
 	var args []string
 	if model.Type == pb.ActionType_RELATED {
 		args = append(args, fmt.Sprintf("WHERE store_id = %d", model.Id))
 	}
-	if stores, err = handler.Svc.All(ctx, args...); err != nil {
+
+	if books, err = handler.Svc.All(ctx, args...); err != nil {
 		return nil, err
 	}
 
-	var data []*pb.BookModel
-	for _, store := range stores {
-		data = append(data, &pb.BookModel{
-			Id:      store.ID,
-			StoreId: store.StoreID,
-			Name:    store.Name,
-		})
+	var items []*pb.BookModel
+	if len(books) > 0 {
+		for _, book := range books {
+			items = append(items, &pb.BookModel{
+				Id:      book.ID,
+				StoreId: book.StoreID,
+				Name:    book.Name,
+			})
+		}
 	}
 
-	return &pb.BookRowsResponse{
-		Books: data,
-	}, err
+	return &pb.BookRowsResponse{Books: items}, err
 }
 
 func (handler *BookGRPCHandler) Show(
@@ -57,11 +58,16 @@ func (handler *BookGRPCHandler) Show(
 		return nil, err
 	}
 
-	return &pb.BookRowResponse{Book: &pb.BookModel{
-		Id:      store.ID,
-		StoreId: store.StoreID,
-		Name:    store.Name,
-	}}, nil
+	var item *pb.BookModel
+	if store != nil {
+		item = &pb.BookModel{
+			Id:      store.ID,
+			StoreId: store.StoreID,
+			Name:    store.Name,
+		}
+	}
+
+	return &pb.BookRowResponse{Book: item}, nil
 }
 
 func (handler *BookGRPCHandler) Store(
