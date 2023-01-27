@@ -48,7 +48,6 @@ func (suite *storeSQLRepositoryTestSuite) TestRepository_Select_ExpectedReturnRo
 	suite.Nil(err)
 	suite.NotNil(res)
 	suite.Nil(suite.mock.ExpectationsWereMet())
-
 }
 func (suite *storeSQLRepositoryTestSuite) TestRepository_Select_ExpectedReturnRow() {
 	mockData := suite.mock.

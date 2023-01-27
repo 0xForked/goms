@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const ServiceAddress = ":3000"
+const ServiceAddress = "localhost:3000"
 
 func main() {
 	appEngine := gin.Default()

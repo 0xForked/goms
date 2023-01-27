@@ -34,7 +34,6 @@ const (
 
 type storeGRPCHandlerTestSuite struct {
 	suite.Suite
-	svc mocks.IStoreRepository
 }
 
 func GetConnWithMock(s *storeGRPCHandlerTestSuite, mockType MockType) *grpc.ClientConn {

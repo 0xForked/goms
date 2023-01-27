@@ -48,7 +48,6 @@ func (suite *bookSQLRepositoryTestSuite) TestRepository_Select_ByID_ExpectedRetu
 	suite.Nil(err)
 	suite.NotNil(res)
 	suite.Nil(suite.mock.ExpectationsWereMet())
-
 }
 func (suite *bookSQLRepositoryTestSuite) TestRepository_Select_ByRelationID_ExpectedReturnRows() {
 	mockData := suite.mock.
@@ -62,7 +61,6 @@ func (suite *bookSQLRepositoryTestSuite) TestRepository_Select_ByRelationID_Expe
 	suite.Nil(err)
 	suite.NotNil(res)
 	suite.Nil(suite.mock.ExpectationsWereMet())
-
 }
 func (suite *bookSQLRepositoryTestSuite) TestRepository_Select_ExpectedReturnRow() {
 	mockData := suite.mock.

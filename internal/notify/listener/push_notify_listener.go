@@ -6,13 +6,13 @@ import (
 	"time"
 )
 
-const Notify event.Name = "notify.push"
+const PushNotify event.Name = "notify.push"
 
-type NotifyEvent struct {
+type PushNotifyEvent struct {
 	Time    time.Time
 	Message string
 }
 
-func (e NotifyEvent) Handle() {
+func (e PushNotifyEvent) Handle() {
 	log.Printf("creating: %+v\n", e)
 }

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	store "github.com/aasumitro/goms/internal/book"
-	"log"
 	"net"
 	"sync"
 
@@ -13,10 +12,10 @@ import (
 )
 
 const (
-	DBDriver       = "sqlite3"
-	DBSource       = "./db/book.db"
-	ServiceNetwork = "tcp"
-	ServiceAddress = ":8002"
+	dbDriver       = "sqlite3"
+	dbSource       = "./db/book.db"
+	serviceNetwork = "tcp"
+	serviceAddress = "localhost:8002"
 )
 
 var (
@@ -31,8 +30,10 @@ func init() {
 }
 
 func main() {
-	if listener, err = net.Listen(ServiceNetwork, ServiceAddress); err != nil {
-		log.Fatalf("Could not listen on port: %v", err)
+	if listener, err = net.Listen(serviceNetwork, serviceAddress); err != nil {
+		panic(fmt.Sprintf(
+			"LISTENER_ERROR: %s",
+			err.Error()))
 	}
 	defer func() { _ = listener.Close() }()
 	store.NewBookService(dbPool, listener)
@@ -40,7 +41,7 @@ func main() {
 
 func getDBConn() {
 	dbOnce.Do(func() {
-		if dbPool, err = sql.Open(DBDriver, DBSource); err != nil {
+		if dbPool, err = sql.Open(dbDriver, dbSource); err != nil {
 			panic(fmt.Sprintf(
 				"DATABASE_ERROR: %s",
 				err.Error()))

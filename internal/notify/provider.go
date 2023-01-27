@@ -13,7 +13,7 @@ func NewNotifyService(redis *redis.Client) {
 	ctx := context.Background()
 
 	dispatcher := event.NewDispatcher()
-	if err := dispatcher.Register(listener.Listener{}, listener.Notify); err != nil {
+	if err := dispatcher.Register(listener.Listener{}, listener.PushNotify); err != nil {
 		log.Fatalln(err)
 	}
 
@@ -25,7 +25,7 @@ func NewNotifyService(redis *redis.Client) {
 		}
 
 		data := []byte(msg.Payload)
-		if err := dispatcher.Dispatch(listener.Notify, listener.NotifyEvent{
+		if err := dispatcher.Dispatch(listener.PushNotify, listener.PushNotifyEvent{
 			Time:    time.Now().UTC(),
 			Message: string(data),
 		}); err != nil {

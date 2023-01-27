@@ -2,17 +2,25 @@ package event
 
 import (
 	"fmt"
+	"github.com/aasumitro/goms/internal/notify/domain/contract"
 )
+
+type Name string
+
+type job struct {
+	eventName Name
+	eventType interface{}
+}
 
 type Dispatcher struct {
 	jobs   chan job
-	events map[Name]Listener
+	events map[Name]contract.Listener
 }
 
 func NewDispatcher() *Dispatcher {
 	d := &Dispatcher{
 		jobs:   make(chan job),
-		events: make(map[Name]Listener),
+		events: make(map[Name]contract.Listener),
 	}
 
 	go d.consume()
@@ -20,7 +28,7 @@ func NewDispatcher() *Dispatcher {
 	return d
 }
 
-func (d *Dispatcher) Register(listener Listener, names ...Name) error {
+func (d *Dispatcher) Register(listener contract.Listener, names ...Name) error {
 	for _, name := range names {
 		if _, ok := d.events[name]; ok {
 			return fmt.Errorf("the '%s' event is already registered", name)

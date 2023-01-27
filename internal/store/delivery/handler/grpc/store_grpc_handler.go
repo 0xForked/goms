@@ -5,12 +5,10 @@ import (
 	"github.com/aasumitro/goms/internal/store/domain/contract"
 	"github.com/aasumitro/goms/internal/store/domain/entity"
 	"github.com/aasumitro/goms/pkg/pb"
-	"sync"
 )
 
 type StoreGRPCHandler struct {
 	pb.UnimplementedStoreGRPCHandlerServer
-	mu  sync.Mutex
 	Svc contract.IStoreService
 }
 

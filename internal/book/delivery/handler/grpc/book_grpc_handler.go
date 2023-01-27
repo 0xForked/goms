@@ -6,12 +6,10 @@ import (
 	"github.com/aasumitro/goms/internal/book/domain/contract"
 	"github.com/aasumitro/goms/internal/book/domain/entity"
 	"github.com/aasumitro/goms/pkg/pb"
-	"sync"
 )
 
 type BookGRPCHandler struct {
 	pb.UnimplementedBookGRPCHandlerServer
-	mu  sync.Mutex
 	Svc contract.IBookService
 }
 
@@ -42,7 +40,7 @@ func (handler *BookGRPCHandler) Fetch(
 	}
 
 	return &pb.BookRowsResponse{
-		Stores: data,
+		Books: data,
 	}, err
 }
 
@@ -59,7 +57,7 @@ func (handler *BookGRPCHandler) Show(
 		return nil, err
 	}
 
-	return &pb.BookRowResponse{Store: &pb.BookModel{
+	return &pb.BookRowResponse{Book: &pb.BookModel{
 		Id:      store.ID,
 		StoreId: store.StoreID,
 		Name:    store.Name,

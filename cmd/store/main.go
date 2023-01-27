@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/aasumitro/goms/internal/store"
-	"log"
 	"net"
 	"sync"
 
@@ -16,7 +15,7 @@ const (
 	DBDriver       = "sqlite3"
 	DBSource       = "./db/store.db"
 	ServiceNetwork = "tcp"
-	ServiceAddress = ":8001"
+	ServiceAddress = "localhost:8001"
 )
 
 var (
@@ -32,7 +31,9 @@ func init() {
 
 func main() {
 	if listener, err = net.Listen(ServiceNetwork, ServiceAddress); err != nil {
-		log.Fatalf("Could not listen on port: %v", err)
+		panic(fmt.Sprintf(
+			"LISTENER_ERROR: %s",
+			err.Error()))
 	}
 	defer func() { _ = listener.Close() }()
 	store.NewStoreService(dbPool, listener)

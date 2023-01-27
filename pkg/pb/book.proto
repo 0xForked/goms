@@ -34,6 +34,6 @@ message BookAddRequest {
   string name = 3;
 }
 
-message BookRowsResponse {repeated BookModel stores = 1;}
-message BookRowResponse {BookModel store = 1;}
+message BookRowsResponse {repeated BookModel books = 1;}
+message BookRowResponse {BookModel book = 1;}
 message BookBoolResponse {bool status = 1;}

@@ -34,7 +34,6 @@ const (
 
 type bookGRPCHandlerTestSuite struct {
 	suite.Suite
-	svc mocks.IBookRepository
 }
 
 func GetConnWithMock(s *bookGRPCHandlerTestSuite, mockType MockType) *grpc.ClientConn {
@@ -111,7 +110,7 @@ func (suite *bookGRPCHandlerTestSuite) TestHandler_Fetch_ShouldSuccess() {
 	res, err := client.Fetch(context.Background(), &pb.BookIDModel{})
 	suite.Nil(err)
 	suite.NotNil(res)
-	suite.Equal(len(res.Stores), 2)
+	suite.Equal(len(res.Books), 2)
 }
 func (suite *bookGRPCHandlerTestSuite) TestHandler_Fetch_ShouldError() {
 	conn := GetConnWithMock(suite, MockFetchError)
@@ -129,7 +128,7 @@ func (suite *bookGRPCHandlerTestSuite) TestHandler_Show_ShouldSuccess() {
 	res, err := client.Show(context.Background(), &pb.BookIDModel{Type: pb.ActionType_SPECIFIED, Id: 1})
 	suite.Nil(err)
 	suite.NotNil(res)
-	suite.Equal(res.Store.Name, "lorem")
+	suite.Equal(res.Book.Name, "lorem")
 }
 func (suite *bookGRPCHandlerTestSuite) TestHandler_Show_ShouldError() {
 	conn := GetConnWithMock(suite, MockShowError)
