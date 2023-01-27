@@ -26,6 +26,10 @@ func (s storeService) Find(ctx context.Context, arg *entity.Store) (item *entity
 		return nil, err
 	}
 
+	if len(data) == 0 {
+		return nil, nil
+	}
+
 	return data[0], nil
 }
 

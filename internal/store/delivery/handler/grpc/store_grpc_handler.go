@@ -51,6 +51,10 @@ func (handler *StoreGRPCHandler) Show(
 		return nil, err
 	}
 
+	if store == nil {
+		return &pb.StoreRowResponse{Store: nil}, nil
+	}
+
 	return &pb.StoreRowResponse{Store: &pb.StoreModel{
 		Id:   store.ID,
 		Name: store.Name,

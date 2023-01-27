@@ -13,6 +13,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
+	"net/http"
 	"sync"
 )
 
@@ -85,11 +86,19 @@ func initGinEngine() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
+	appEngine = gin.Default()
+
+	appEngine.NoMethod(func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusTemporaryRedirect, "/docs/index.html")
+	})
+
+	appEngine.NoRoute(func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusTemporaryRedirect, "/docs/index.html")
+	})
+
 	appEngine.GET("/docs/*any",
 		ginSwagger.WrapHandler(swaggerFiles.Handler,
 			ginSwagger.DefaultModelsExpandDepth(ginModelsDepth)))
-
-	appEngine = gin.Default()
 }
 
 func initSwaggerInfo() {

@@ -13,7 +13,7 @@ deps: $(GOTESTSUM) $(MOCKERY) $(GOLANGCI)
 deps:
 	@echo "Required Tools Are Available"
 
-swag: tests
+api-spec: tests
 	@ echo "Re-generate Swagger File (API Spec docs)"
 	@ swag init --parseDependency --parseInternal \
 		--parseDepth 4 -g ./cmd/bff/main.go

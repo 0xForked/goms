@@ -1,23 +1,67 @@
 package service
 
 import (
+	"context"
 	"github.com/aasumitro/goms/internal/bff/domain/contract"
+	"github.com/aasumitro/goms/internal/bff/domain/entity"
+	"github.com/aasumitro/goms/internal/bff/utils"
+	"github.com/go-redis/redis/v8"
 )
 
 type bffService struct {
+	redisConn *redis.Client
 	storeRepo contract.IStoreGRPCRepository
 	bookRepo  contract.IBookGRPCRepository
 }
 
+func (s bffService) AllStore(
+	ctx context.Context,
+	args *contract.WithParam,
+	params *entity.Store,
+) (
+	items []*entity.Store,
+	errorData *utils.ServiceErrorData,
+) {
+	return utils.WrapDataRows(s.storeRepo.All(ctx))
+}
+
+func (s bffService) FirstStore(
+	ctx context.Context,
+	args *contract.WithParam,
+	param *entity.Store,
+) (
+	items *entity.Store,
+	errorData *utils.ServiceErrorData,
+) {
+	data, err := s.storeRepo.Find(ctx, param)
+
+	if args != nil && *args == contract.WithRelationID {
+		if books, err := s.bookRepo.All(ctx, &entity.Book{StoreID: data.ID}); err == nil {
+			data.Books = books
+		}
+	}
+
+	return utils.WrapDataRow(data, err)
+}
+
 func NewBFFService(
+	redisClient *redis.Client,
 	storeRepo contract.IStoreGRPCRepository,
 	bookRepo contract.IBookGRPCRepository,
 ) contract.IBFFService {
 	return &bffService{
+		redisConn: redisClient,
 		storeRepo: storeRepo,
 		bookRepo:  bookRepo,
 	}
 }
+
+// if err := redis.Publish(ctx,
+// "notify",
+// fmt.Sprintf("send message: %d", i)).
+// Err(); err != nil {
+// panic(err)
+// }
 
 //
 // if rows, err := storeRepo.All(context.TODO()); err == nil {

@@ -1,9 +1,9 @@
 package bff
 
 import (
-	"context"
-	"fmt"
+	"github.com/aasumitro/goms/internal/bff/delivery/handler/rest"
 	grpcRepo "github.com/aasumitro/goms/internal/bff/repository/grpc"
+	"github.com/aasumitro/goms/internal/bff/service"
 	"github.com/aasumitro/goms/pkg/pb"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
@@ -15,20 +15,9 @@ func NewBFFService(
 	storeConn pb.StoreGRPCHandlerClient,
 	bookConn pb.BookGRPCHandlerClient,
 ) {
-	_ = grpcRepo.NewStoreGRPCRepository(storeConn)
-	_ = grpcRepo.NewBookGRPCRepository(bookConn)
-
-	publish(redisConn)
-}
-
-func publish(redis *redis.Client) {
-	ctx := context.Background()
-	for i := 0; i <= 10; i++ {
-		if err := redis.Publish(ctx,
-			"notify",
-			fmt.Sprintf("send message: %d", i)).
-			Err(); err != nil {
-			panic(err)
-		}
-	}
+	storeRepo := grpcRepo.NewStoreGRPCRepository(storeConn)
+	bookRepo := grpcRepo.NewBookGRPCRepository(bookConn)
+	bffService := service.NewBFFService(redisConn, storeRepo, bookRepo)
+	v1 := router.Group("/api/v1")
+	rest.NewBFFRegistrarHandler(bffService, v1)
 }

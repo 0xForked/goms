@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/aasumitro/goms/internal/store"
+	"log"
 	"net"
 	"sync"
 
@@ -35,7 +36,12 @@ func main() {
 			"LISTENER_ERROR: %s",
 			err.Error()))
 	}
-	defer func() { _ = listener.Close() }()
+	defer func() {
+		_ = listener.Close()
+		if r := recover(); r != nil {
+			log.Printf("recover %s", r)
+		}
+	}()
 	store.NewStoreService(dbPool, listener)
 }
 

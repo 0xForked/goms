@@ -2,9 +2,9 @@ package entity
 
 type (
 	Store struct {
-		ID    uint32 `json:"id"`
-		Name  string `json:"name"`
-		Books []Book `json:"books,omitempty"`
+		ID    uint32  `json:"id"`
+		Name  string  `json:"name"`
+		Books []*Book `json:"books,omitempty"`
 	}
 
 	Book struct {

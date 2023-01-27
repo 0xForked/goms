@@ -29,7 +29,7 @@ func (r storeGRPCRepository) All(ctx context.Context) (items []*entity.Store, er
 
 func (r storeGRPCRepository) Find(ctx context.Context, arg *entity.Store) (item *entity.Store, err error) {
 	data, err := r.grpcConn.Show(ctx, &pb.StoreIDModel{Id: arg.ID})
-	if err != nil {
+	if err != nil || data.Store == nil {
 		return nil, err
 	}
 
