@@ -24,21 +24,11 @@ func NewStoreService(db *sql.DB, host net.Listener) {
 			grpcCtxTags.StreamServerInterceptor(),
 			grpcOpentracing.StreamServerInterceptor(),
 			grpcRecovery.StreamServerInterceptor(),
-			// grpcZap.StreamServerInterceptor(zapLogger, []grpcZap.Option{
-			//	grpcZap.WithDurationField(func(duration time.Duration) zapcore.Field {
-			//		return zap.Int64("grpc.time_ns", duration.Nanoseconds())
-			//	}),
-			// }...),
 		)),
 		grpc.UnaryInterceptor(grpcMiddleware.ChainUnaryServer(
 			grpcCtxTags.UnaryServerInterceptor(),
 			grpcOpentracing.UnaryServerInterceptor(),
 			grpcRecovery.UnaryServerInterceptor(),
-			// grpcZap.UnaryServerInterceptor(zapLogger, []grpcZap.Option{
-			//	grpcZap.WithDurationField(func(duration time.Duration) zapcore.Field {
-			//		return zap.Int64("grpc.time_ns", duration.Nanoseconds())
-			//	}),
-			// }...),
 		)),
 	)
 	pb.RegisterStoreGRPCHandlerServer(svr, tpt)

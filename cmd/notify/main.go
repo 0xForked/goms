@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/aasumitro/goms/internal/notify"
 	"github.com/go-redis/redis/v8"
+	"log"
 	"sync"
 )
 
@@ -20,6 +21,11 @@ func init() {
 }
 
 func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Println("recover from panic")
+		}
+	}()
 	notify.NewNotifyService(redisPool)
 }
 

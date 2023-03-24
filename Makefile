@@ -13,6 +13,9 @@ deps: $(GOTESTSUM) $(MOCKERY) $(GOLANGCI)
 deps:
 	@echo "Required Tools Are Available"
 
+mock:
+	mockery --all --output=mocks/genmocks --outpkg=mocks
+
 api-spec: tests
 	@ echo "Re-generate Swagger File (API Spec docs)"
 	@ swag init --parseDependency --parseInternal \

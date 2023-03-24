@@ -2,6 +2,7 @@ package bff
 
 import (
 	"github.com/aasumitro/goms/internal/bff/delivery/handler/rest"
+	"github.com/aasumitro/goms/internal/bff/delivery/middleware"
 	grpcRepo "github.com/aasumitro/goms/internal/bff/repository/grpc"
 	"github.com/aasumitro/goms/internal/bff/service"
 	"github.com/aasumitro/goms/pkg/pb"
@@ -18,6 +19,7 @@ func NewBFFService(
 	storeRepo := grpcRepo.NewStoreGRPCRepository(storeConn)
 	bookRepo := grpcRepo.NewBookGRPCRepository(bookConn)
 	bffService := service.NewBFFService(redisConn, storeRepo, bookRepo)
+	router.Use(middleware.CORS())
 	v1 := router.Group("/api/v1")
 	rest.NewBFFRegistrarHandler(bffService, v1)
 }
