@@ -9,7 +9,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.3
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.16.1
